@@ -1,0 +1,8 @@
+Nos últimos anos houve um aumento de interesse na integração de operações morfológicas na estrutura de redes neurais devido a similiaridade existente entre operações morfologicas e de convolução.
+Por conseguinte, emerge-se duas grandes linhas de pesquisa.
+A primeira, que retoma ao final dos anos 80, substui operações da unidade \emph{perceptron}, como a multiplicação e soma pela adição e máximo, partindo de uma unidade \emph{perceptron} linear aos chamados \emph{perceptons} morfológicos não lineares.
+A segunda explora a integração de operações morfológicas elementares nas Redes Neurias Convolucionais para a aprendizagem automática de seus pesos e formas ideais, tendo como maior problema as operações $\max$ e $\min$ como não deriváveis.
+
+Uma primeira solução alternativa é o uso de aproximações diferenciáveis suaves para os tornar adaptáveis à abordagem de aprendizem do gradiente descendente convencional por meio da retropropagação.
+Então, chama-se a atenção para as camadas p-convoluções (\emph{PConv}) pelos resutados promissores.
+Baseando na estrutura da média contra-harmônica (CHM), pretende-se apresentar duas extensões para a camada \emph{PConv} com o interesse de implementa-los em arquiteturas de redes neurais profundas.

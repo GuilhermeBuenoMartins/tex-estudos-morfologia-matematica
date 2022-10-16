@@ -1,0 +1,70 @@
+%! Author = gbueno
+%! Date = 22/07/2022
+
+% Preamble
+\documentclass[11pt]{article}
+
+% Packages
+\usepackage{amsmath}
+\usepackage{ragged2e}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+\usepackage{stmaryrd}
+\usepackage{wasysym}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage[T1]{fontenc}
+
+% Document
+\begin{document}
+
+    % Title
+    \LARGE
+    \centering
+    RESUMO\\
+
+    \Large
+    Kirszenberg, A., Tochon, G., Puybareau, É., e Angulo, J. (2021). \textbf{Going beyond p-convolutions to learn grayscale morphological operator}\\
+    \vspace{0.5cm}
+
+    % Authory
+    \normalsize
+    \centering
+    Autor: Guilherme Bueno Martins\\
+    22 de julho de 2022\\
+    \vspace{1cm}
+
+    % Body
+    \justifying
+
+
+    \section{Introdução}
+    \label{sec:introducao}
+
+    \input{sections/Introducao.tex}
+
+
+    \section{P-convolução: definição, propriedades e armadilhas}
+    \label{sec:p-convolucao:-definicao-propriedades-e-armadilhas}
+
+    \input{sections/PConvoluçãoDefiniçãoPropriedadesEArmadilhas.tex}
+
+
+    \section{Camadas $\mathcal{L}$Morph e $\mathcal{S}$Morph propostas}
+    \label{sec:camadas-lmorph-e-smorph-propostas}
+
+    \input{sections/CamadasLMorphESMorphPropostas.tex}
+
+
+    \section{Experimentos conduzidos}
+    \label{sec:experimentos-conduzidos}
+
+    \input{sections/ExperimentosConduzidos.tex}
+
+
+    \section{Conclusão}
+    \label{sec:conclusao}
+
+    \input{sections/Conclusao.tex}
+
+\end{document}

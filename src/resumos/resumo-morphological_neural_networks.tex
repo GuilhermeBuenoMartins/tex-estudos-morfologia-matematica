@@ -1,0 +1,70 @@
+%! Author = gbueno
+%! Date = 30/06/2022
+
+% Preamble
+\documentclass[12pt]{article}
+
+% Packages
+\usepackage{amsmath}
+\usepackage{ragged2e}
+\usepackage{hyperref}
+\usepackage{amsfonts}
+
+% Document
+\begin{document}
+    % Title
+    \LARGE
+    \centering
+    Resumo de:\\ Davidson, J. L. and Hummer, F (1993). \textbf{Morphology Neural Networks – An Introduction with Applications}\\
+    \vspace{0.25in}
+
+    % Authory
+    \large
+    Guilherme Bueno Martins\\
+    30 de junho de 2022\\
+    \vspace{0.5in}
+    \justifying
+
+
+    \section{Introdução} \label{ch:introducao}\\
+    Desenvolvida pela Força Aérea dos Estatos Unidos, a algebra de imagem é capaz de descrever qualquer transformação imagem-para-imagem que possa ser definida em processos de algoritmos finitos, como imagens em níveis de cinza.
+    A algebra de imagem permite um produto generalizado entre uma imagem e um modelo, que pode ser usada para descrever uma computação de nó de rede neural.
+    Dois especificos casos deste produto generalizado dão a computação neural clássica e a computação neural de morfologia.
+    Como apresentado pelo artigo, a rede neural de morfologia provê um novo método de solução para o reconhecimento de padrões de tipo não linear, expresso pela Equação~\ref{eq:equation2}.\\
+    A principal diferença entre a rede clássica e rede de morfologia é a computação algébrica de cada nó.
+    Os resultados de cada nó antecedente são agrupados em $a = (a_1, a_2, \dots, a_n)$, multiplicados por seus pesos correspondentes $\{w_{ij}\}$, conforme a Equação~\ref{eq:equation1} e passados através da função de ativação do nó $f_i$:\\
+    \begin{equation}
+        b_j = f_i (\sum_{i=1}^{N} a_i w_{ji}).\\\label{eq:equation1}
+    \end{equation}
+    \begin{equation}
+        b_j = f_i (\bigvee_{i=1}^{N} a_i + w_{ji}).\\\label{eq:equation2}
+    \end{equation}
+    A diferença da computação algébrica presente na rede neural de morfologia distingui-se pela estrutura algébrica subjacente dos valores utilizados.
+    Usa-se em uma rede neural clássica números reais (\mathbb{R}) ou complexos (\mathbb{C}) cujos campos correspondentes podem ser respesentados como (\mathbb{R}, +, *, 0, 1) ou (\mathbb{C}, +, *, 0, 1).
+    Por isso, 0 é a identidade para operação de adição (+), 1 é a identidade para a operação de múltiplicação.
+    Já na rede neural de morfologia, sujetividade algébrica é a \texit{lattice} dos números reais extendidos,$\mathbb{R}_{\pm\infty} = \mathbb{R} \cup \{-\infty, +\infty\}$.
+    A operação $\bigvee$, máximo ou limite superior mínimo, substitui a operação + acima, e a operção +, toma o lugar do operador *.
+    O valor $-\inf$ cumpre o papel de 0, bem como valor de 0 substitui 1 no sistema número da rede de morfologia definida como:\\
+    \begin{equation}
+    (\mathbb{R}_{\pm\infty}, \bigvee, +, -\infty, 0)
+        .\\\label{eq:equation3}
+    \end{equation}
+    É possível compreender a transformação a partir da substituição dos operadores lineares pelos seus operadores \textit{lattice} correspondentes.
+    A transformação resultante é chamada de \textit{transformação lattice} e advém dos estudos da algebra matricial minimax.\\
+    Na seção~\ref{sec:algebra-de-imagem-e-sua-relacao-com-redes-neurais}, detalha-se a importância que \textit{lattice} $\mathbb{R}_{\pm\infty}$ tem nas redes de morfologia.
+    Na seção 3, as bases da teoria são dadas.
+    Na seção 4, exemplos de redes neurais de morfologia são dados, com ou sem regras de aprendizagem, e para dois deles, prova-se teoremas de convergência.
+
+
+    \section{Algebra de imagem e sua relação com redes neurais} \label{sec:algebra-de-imagem-e-sua-relacao-com-redes-neurais}\\
+    Uma \textit{imagem} é uma função de um subconjunto $X$ de $N$ dimensões do espaço Euclidiano $\mathbb{R}^N$ para um conjunto de valores denotados por $\mathbb{F}$.
+    Então, $a \in \mathbb{F}^X$ forma $\{(x,a(x)): x \in X, a(x) \in \mathbb{F}\}$, ou, se $X$ é finito com $q$ elementos, $\{(i,a(i)): i=1, \dots, q, a(i) \in \mathbb{F}\}$.
+    Um \textit{template} é um elemento de $(\mathbb{F}^X)^Y$, onde $X \subset \mathbb{R}^N, Y \subset \mathbb{R}^M$.
+    Equilalentemente, um \textit{template} $t$ é uma função, $t: Y \rightarrow \mathbb{F}^X$, formado por
+
+
+    \section{A teoria das redes neurias de morfologia} \label{sec:a-teoria-das-redes-neurias-de-morfologia}
+
+
+    \section{Exemplos de aplicações} \label{sec:exemplos-de-aplicacoes}
+\end{document}

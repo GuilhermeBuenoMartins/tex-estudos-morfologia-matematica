@@ -1,0 +1,131 @@
+Nesta seção, são detalhadas noções da p-convolução.
+
+\subsection{Morfologia matemática em tons de cinza}
+\label{subsec:morfologia-matematica-em-tons-de-cinza}
+
+Em morfologia matemática, classicamente, uma imagem $f$ é representada como uma função 2D.
+Defini-se $f: E \rightarrow \mathbb{R}$ com $x \in E$ sendo as coordenadas do píxel em um grid $E \subset \mathbb{Z}^{2}$ e os valores dos píxeis representados por $f(x) \in \mathbb{R}$.
+Na morfologia matematática em tons de ciza, ambas a imagem $f$ e o elemento estruturante $b$ são valores reais (e não binário).
+Ou seja, $b(x) \in \mathbb{R}$ e as operações de erosão $f \ominus b$ e dilatação $f \oplus b$ podem ser escrita como:
+
+% Equation 1
+\begin{equation}
+(f \ominus b)(x)
+    = \inf_{y \in E}\Big{\{} f(y) - b(x - y)\Big{\}}
+    \label{eq:equation}
+\end{equation}
+
+% Equation 2
+\begin{equation}
+(f \oplus b)(x)
+    = \sup_{y \in E}\Big{\{} f(y) + b(x - y)\Big{\}}
+    \label{eq:equation2}
+\end{equation}
+
+O formualismo acima também é aplicável no uso de elementos estruturantes planos (binários) com
+
+% Equation 3
+\begin{equation}
+    b(x) = \begin{cases}
+               0        & \text{se } x \in B,       \\
+               -\infty  & \text{caso contrário}     \\
+    \end{cases}
+    \label{eq:equation3}
+\end{equation}
+\\
+onde $B \subset E$ é o suporte da função estruturante $b$.
+
+\subsection{A média contra-harmônica e a p-convolução}
+\label{subsec:a-media-contra-harmonica-e-a-p-convolucao}
+
+A média ponderada de Lehmer, também conhecida como média contra-harmônica, é dada por um vetor não negativo $x = (x_{1}, x_{2}, \dots, x_{n}) \in (\mathbb{R}^{+})^{n}$, pesos não negativos $w = (w_{1}, w_{2}, \dots, w_{n}) \in (\mathbb{R}^{+})^{n}$ e com $p \in \mathbb{R}$.
+Denotada por $CHM(x, w, p)$, é definida como:
+
+% Equation 4
+\begin{equation}
+    CHM(x, w, p) = \frac{\sum_{i = 1}^{n} w_{i}x_{i}^{p}}{\sum_{i = 1}^{n} w_{i}x_{i}^{p-1}}
+    \label{eq:equation4}
+\end{equation}
+
+Dentre os casos especiais, tem-se que $\lim_{p \to -\infty} CHM(x, w, p)$ é o mínimo dos elementos de x (ou seja, $\inf\{x_{i}\}$), bem como $\lim_{p \to +\infty} CHM(x, w, p)$ é o máximo dos elementos de x (ou, $\sup\{x_{i}\}$).
+
+A p-convolução de uma imagem $f$ no píxel $x$ para valores do \emph{kernel} de convolução $w: W \subset E \to \mathbb{R}^{+}$ é definida como:
+
+% Equation 5
+\begin{equation}
+    \begin{split}
+        PConv(f, w, p)(x) = (f *_{p} w)(x) = \frac{(f^{p+1}*w)(x)}{(f^{p}*w)(x)} = \\
+        = \frac{\sum_{y \in W(x)} f^{p+1}(y)w(x - y)}{\sum_{y \in W(x)} f^{p}(y)w(x - y)}
+    \end{split}
+    \label{eq:equation5}
+\end{equation}
+\\
+onde $f^{p}(x)$ denota $(f(x))^{p}$ e, $W(x)$ é o suporte espacial do \emph{kernel} $w$ centrado em $x$.
+Valendo-se das propriedades presentes na CHM, um comportamento morfológico é observado apartir de $p$.
+Mais precisamente, uma pseudo-dilatação de $p \geq 0$ é alcançada quando $p \to +\infty$, bem como uma pseudo-erosão $p \leq 0$ para $p \to -\infty$.
+Há, então, uma dominância do maior valor de píxel na vizinhança $W(x)$ para o píxel $x$ quando em uma dilatação (ou, em uma erosão, do menor valor de píxel na vizinha $W(x)$ para o píxel $x$) em uma soma ponderada.
+Assintoticamente, $PConv(f, w, p)$ atua como uma diltação em tons de cinza não plana (ou como uma erosão em tons de cinza não plana) com função estruturante $b(x) = \frac{1}{p}\log(w(x))$:
+
+% Equation 6
+\begin{equation}
+    \lim_{p \to +\infty} (f *_{p} w)(x) =
+    \sup_{y \in W(x)} \Big{\{}f(y) + \frac{1}{p}\log(x(x - y))\Big{\}}
+    \label{eq:equation6}
+\end{equation}
+
+% Equation 7
+\begin{equation}
+    \lim_{p \to -\infty} (f *_{p} w)(x) =
+    \inf_{y \in W(x)} \Big{\{}f(y) - \frac{1}{p}\log(x(x - y))\Big{\}}
+    \label{eq:equation7}
+\end{equation}
+
+De forma impírica, a aplicação das equações ~\ref{eq:equation6} e ~\ref{eq:equation7} são verdadeiras para $|p| > 10$.
+Pode-se obter funções estruturantes planas usando pesos constantes nos \emph{kernels} de forma a satisfazer
+
+% Equation 8
+\begin{equation}
+    w(x) = \begin{cases}
+               1    & \text{, se } x \in W,                         \\
+               0    & \text{, se } x \notin W \text{ e } |p| \geq 0 \\
+    \end{cases}
+    \label{eq:equation8}
+\end{equation}
+\\
+e considerando, obviamente as limitações da definição de logaritmo.
+Ou seja, quando $w(x) = 0$, temos as equações ~\ref{eq:equation6} e ~\ref{eq:equation7} como indefinidas.
+Contudo, sendo a operação \emph{PConv} diferenciável, é compatível com a abordagem de aprendizagem via retropropagação com gradiente descendente.
+
+
+\subsection{Limites da camada de p-convolução}
+\label{subsec:limites-da-camada-de-p-convolucao}
+
+Para que a \emph{PConv} seja definida em todas as suas entradas, são necessários que seus parâmetros $f$ e $w$ sejam estritamente positivos, além de outras limitações que devem ser evitadas.
+São elas:
+
+\begin{itemize}
+    \item Se $w(x)$ ou $f^{p}(x)$ conter valores nulos, $\frac{1}{(f*_{p}w)(x)}$ não é definida;
+    \item Se $f(x)$ contém valores nulos e $p$ é negativo, então $f^{p}(x)$ não é definida;
+    e
+    \item Se $f(x)$ conter valores negativos e $p$ diferir de nulo, tal que $p \notin \mathbb{R}$, $f^{p}(x)$ pode pertencer aos números complexos.
+\end{itemize}
+
+De forma geral, o cáculo a seguir é bastante utilizado para re-escalar valores de entrada no intervalo $[0, 1]$:
+
+%Equation 9
+\begin{equation}
+    \text{maxmin}(f(x)) = \frac{f(x) - \min_{x \in E}f(x)}{\max_{x \in E}f(x) - \min_{x \in E}f(x)}.
+    \label{eq:equation9}
+\end{equation}
+
+Sendo necessário re-escalar parâmetros de entrada entre camadas \emph{PConv} para se atingir uma pseudo-abertura ou pseudo-fechamento, por exemplo, aplica-se $1.0 + \text{maxmin}(f(x))$ de modo que a re-escala compreenda o intervalo $[1, 2]$.
+Para se aplicar a re-escala, calcula-se:
+
+% Equation 10
+\begin{equation}
+    f_{r}(x) = 1.0 + \text{maxmin}(f(x)) =
+    1.0 + \frac{f(x) - \min_{x \in E}f(x)}{\max_{x \in E}f(x) - \min_{x \in E}f(x)}.
+    \label{eq:equation10}
+\end{equation}
+
+
